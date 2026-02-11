@@ -12,6 +12,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import spring.deep.controller.HelloController;
+import spring.deep.service.SimpleHelloService;
 
 import java.io.IOException;
 
@@ -22,6 +23,7 @@ public class DeepApplication {
 		System.out.println("======= Hello DeepApplication =======");
 		GenericApplicationContext applicationContext = new GenericApplicationContext();
 		applicationContext.registerBean(HelloController.class);
+		applicationContext.registerBean(SimpleHelloService.class);
 		applicationContext.refresh(); // applicationContext 초기화(bean object 생성됨)
 
 		// Add Servlet to servlet-container
@@ -29,8 +31,6 @@ public class DeepApplication {
 		// 웹프로그래밍은 요청을 받아서 응답을 만들어 내는 것.
 		TomcatServletWebServerFactory serverFactory = new TomcatServletWebServerFactory();
 		WebServer webServer = serverFactory.getWebServer(servletContext -> {
-			HelloController helloController = new HelloController();
-
 			servletContext.addServlet("frontController", new HttpServlet() {
 				@Override
 				protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
