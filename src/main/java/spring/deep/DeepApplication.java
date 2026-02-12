@@ -1,24 +1,33 @@
 package spring.deep;
 
 import org.springframework.beans.BeansException;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.server.servlet.ServletWebServerFactory;
-import org.springframework.web.context.support.GenericWebApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 import spring.deep.controller.HelloController;
+import spring.deep.service.HelloService;
 import spring.deep.service.SimpleHelloService;
 
-import java.io.IOException;
-
-//@SpringBootApplication
+@Configuration
 public class DeepApplication {
+	@Bean
+	public HelloController helloController(HelloService helloService){
+		return new HelloController(helloService);
+	}
+
+	@Bean
+	public HelloService helloService(){
+		return new SimpleHelloService();
+	}
 
 	public static void main(String[] args) {
 		System.out.println("======= Hello DeepApplication =======");
 		// DispatcherServlet이 사용할 ApplicationContext
-		GenericWebApplicationContext applicationContext = new GenericWebApplicationContext() {
+		AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext() {
 			@Override
 			protected void onRefresh() throws BeansException {
 				super.onRefresh();
@@ -33,9 +42,8 @@ public class DeepApplication {
 			}
 		};
 
-		applicationContext.registerBean(HelloController.class);
-		applicationContext.registerBean(SimpleHelloService.class);
+		applicationContext.register(DeepApplication.class);
 		applicationContext.refresh(); // applicationContext 초기화~템플릿메서드(bean object 생성됨)
 	}
-
 }
+
