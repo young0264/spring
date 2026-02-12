@@ -4,6 +4,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.server.servlet.ServletWebServerFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -12,26 +13,18 @@ import org.springframework.web.servlet.DispatcherServlet;
 @ComponentScan
 @Configuration
 public class DeepApplication {
-	public static void main(String[] args) {
-		System.out.println("======= Hello DeepApplication =======");
-		// DispatcherServlet이 사용할 ApplicationContext
-		AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext() {
-			@Override
-			protected void onRefresh() throws BeansException {
-				super.onRefresh();
-				// Add Servlet to servlet-container
-				// 웹프로그래밍은 요청을 받아서 응답을 만들어 내는 것.
-				ServletWebServerFactory serverFactory = new TomcatServletWebServerFactory();
-				WebServer webServer = serverFactory.getWebServer(servletContext -> {
-					servletContext.addServlet("dispatcherServlet", new DispatcherServlet(this)
-					).addMapping("/*"); //servlet container에 매핑정보 등록
-				});
-				webServer.start();
-			}
-		};
+	@Bean
+	public ServletWebServerFactory servletWebServerFactory() {
+		return new TomcatServletWebServerFactory();
+	}
 
-		applicationContext.register(DeepApplication.class);
-		applicationContext.refresh(); // applicationContext 초기화~템플릿메서드(bean object 생성됨)
+	@Bean
+	public DispatcherServlet dispatcherServlet() {
+		return new DispatcherServlet();
+	}
+
+	public static void main(String[] args) {
+		MyApplication.run(DeepApplication.class, args);
 	}
 }
 
