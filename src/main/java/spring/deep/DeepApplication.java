@@ -1,13 +1,11 @@
 package spring.deep;
 
-import org.springframework.beans.BeansException;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory;
-import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.server.servlet.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
 @ComponentScan
@@ -24,7 +22,7 @@ public class DeepApplication {
 	}
 
 	public static void main(String[] args) {
-		MyApplication.run(DeepApplication.class, args);
+		SpringApplication.run(DeepApplication.class, args);
 	}
 }
 
