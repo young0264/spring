@@ -5,12 +5,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import spring.deep.annotation.MyComponent;
 import spring.deep.service.HelloService;
 
 import java.util.Objects;
 
 // Simple java class without any Spring
-@Component
+@MyComponent
 @RestController
 @RequestMapping("/hello")
 public class HelloController {
