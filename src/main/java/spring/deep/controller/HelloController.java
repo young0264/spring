@@ -17,6 +17,9 @@ public class HelloController {
 
     @GetMapping("/hello")
     public String hello(String name) {
+        if(name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Name must not be null or empty");
+        }
         return helloService.sayHello(Objects.requireNonNull(name));
     }
 }

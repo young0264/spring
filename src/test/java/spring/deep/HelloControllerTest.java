@@ -17,6 +17,8 @@ public class HelloControllerTest {
     void failHelloController() {
         HelloController helloController = new HelloController(name -> name);
         Assertions.assertThatThrownBy(() -> helloController.hello(null))
-                .isInstanceOf(NullPointerException.class);
+                .isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(() -> helloController.hello(""))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }
