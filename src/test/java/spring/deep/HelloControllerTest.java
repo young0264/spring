@@ -1,0 +1,22 @@
+package spring.deep;
+
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
+import spring.deep.controller.HelloController;
+
+public class HelloControllerTest {
+
+    @Test
+    void helloController() {
+        HelloController helloController = new HelloController(name -> name);
+        String ret = helloController.hello("TEST");
+        Assertions.assertThat(ret).isEqualTo("TEST");
+    }
+
+    @Test
+    void failHelloController() {
+        HelloController helloController = new HelloController(name -> name);
+        Assertions.assertThatThrownBy(() -> helloController.hello(null))
+                .isInstanceOf(NullPointerException.class);
+    }
+}
