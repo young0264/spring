@@ -18,6 +18,8 @@ public class CustomAutoConfigImportSelector implements DeferredImportSelector, B
     @Override
     public String[] selectImports(AnnotationMetadata importingClassMetadata) {
         List<String> autoConfigs = new ArrayList<>();
+
+        // @CustomAutoConfiguration select
         ImportCandidates.load(CustomAutoConfiguration.class, classLoader)
                 .forEach(candidate -> autoConfigs.add(candidate));
 
