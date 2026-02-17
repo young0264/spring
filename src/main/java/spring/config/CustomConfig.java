@@ -1,4 +1,4 @@
-package spring.deep.config;
+package spring.config;
 
 import org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.servlet.ServletWebServerFactory;
