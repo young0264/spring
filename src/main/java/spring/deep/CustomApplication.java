@@ -6,7 +6,7 @@ import org.springframework.boot.web.server.servlet.ServletWebServerFactory;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
-public class MyApplication {
+public class CustomApplication {
 
     public static void run(Class<?> applicationClass, String... args) {
         System.out.println("======= Hello DeepApplication =======");
