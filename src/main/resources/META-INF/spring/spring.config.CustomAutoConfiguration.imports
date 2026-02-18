@@ -1,2 +1,3 @@
 spring.config.autoconfig.DispatcherServletConfig
-spring.config.autoconfig.TomcatWebServerConfig
+spring.config.autoconfig.JettyWebServerConfig
+#spring.config.autoconfig.TomcatWebServerConfig
